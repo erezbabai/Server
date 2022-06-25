@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+             {% if session['registration'] %}
+            {% set pageTitle =  'Welcome ' +  session['nickname'] | title()  + '  this is the home page ' %}
+        {% else %}
+            {% set pageTitle =  'Welcome, please go to the sign in page' %}
+        {% endif %}
+
+{% block tohen %}
+    {% if user_name %}
+        <h1>Welcome, {{ user_name | default('Stranger', true) | upper() }}!</h1>
+    {% else %}
+
+    {% endif %}
+    <h2 class="{% if user_name %}loggedin{% else %}no_user{% endif %}"></h2>
+ <script src="/static/css/js.js"> </script>
+
+{% endblock %}
+
+
+

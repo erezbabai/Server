@@ -1,0 +1,101 @@
+
+ {% if session['registration'] %}
+            {% set pageTitle =  'Welcome ' +  session['username'] | title()  + '  this is Erez Babai preferences! ' %}
+        {% else %}
+            {% set pageTitle =  'Welcome Anonymos to Erez Babai preferences' %}
+        {% endif %}
+
+{% extends 'base.html' %}
+
+{% block title %}Personal page{% endblock %}
+
+
+{% block tohen %}
+    {{ super() }}
+
+
+
+    {% if user %}
+     <div>
+     <h2>Erez's Details:</h2>
+
+    {% for key, value in user.items() %}
+                 {% if key=="email" %}
+                        <p>{{ key}}: {{ value | lower()}}</p>
+                    {% else %}
+                        <p>{{ key |replace("_", " ") | title()}}: {{ value | title() }}</p>
+                {% endif %}
+    {% endfor %}
+
+
+     <h2> Erez's Hobbies:</h2>
+    {% if hobbies %}
+            {% for hobbie in hobbies |unique()|sort() %}
+              <p> {{ hobbie |title() }} </p>
+            {% endfor %}
+        {% else %}
+            <h4> {{ user.first_name | title() | default('User', true)}} Did not define any hobbies </h4>
+        {% endif %}
+
+
+        <h2> Erez's favorite artists:</h2>
+
+        {% if preferences_in_music_dict %}
+            <table>
+                {% for key, values in preferences_in_music_dict.items()%}
+                   <tr>
+                        <th> {{ key|title()| default('Other', true)}} </th>
+                         {% for  value in values|sort()|unique() %}
+                           <td> {{ value|capitalize()}} </td>
+                        {% endfor %}
+                   </tr>
+                {% endfor %}
+            </table>
+                {% if favorit_singer %}
+                    <a href='/lynardskynard'>Click here to visit Erez's favorite artist </a>
+                {% endif %}
+        </h4>
+        {% endif %}
+    </div>
+
+
+
+ {% else %}
+     <h1>user not found</h1>
+ {% endif %}
+
+    <br> <br>
+    <div> Wanna see more info about a specific movie? <br>
+    just enter it's name below</div>
+     <form action="/assignment3_1">
+        <input type="text" name="movie_name" placeholder="Movie Name">
+        <input type="submit" value="Find">
+    </form>
+    {% if movie_name %}
+        <h1>Good Choice!</h1>
+        <div class="container">
+        <h2>{{ movie_name }}</h2>
+        <h3>Genre: {{ movie_genre }}</h3>
+        <h3>Movie Length: {{ movie_length }}</h3>
+        </div>
+    {% endif %}
+    {% if message %}
+        <h3 id="errormessage">{{ message }}</h3>
+    {% endif %}
+
+    {% if movie_dict %}
+        <h1>My top 5 Movies</h1>
+        <ol>
+            {% for k, v in movie_dict.items() %}
+                <div class="container">
+                <h2>Name: {{ k }}</h2>
+                </div>
+
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endblock %}
+
+
+
+

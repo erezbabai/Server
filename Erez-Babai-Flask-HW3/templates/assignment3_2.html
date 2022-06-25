@@ -1,0 +1,105 @@
+
+{% extends 'base.html' %}
+
+       {% if session['registration'] %}
+            {% set pageTitle =  'Welcome ' +  session['nickname'] | title()  + '!  here you can Search Users ' %}
+        {% else %}
+            {% set pageTitle =  'Welcome, please register or search for other users' %}
+        {% endif %}
+{% block title %}search/registration page{% endblock %}
+
+{% block tohen %}
+{{ super() }}
+    {% if users_list %}
+            <ol class="container">
+
+                {% for k, values in users_list.items() %}
+                    <h2 >{{k}}:
+                    </h2>
+
+                     {% for key, value in values.items() %}
+
+                         {% if key!='user_password' %}
+                             {% if key=='user_email' %}
+                                <p>
+                                 {{ key|replace("_", " ")| upper()}} : {{ value| title()}}
+                                </p>
+                                 {% else %}
+                                <p>
+                                 {{ key|replace("_", " ")| upper()}} : {{ value| title()}}
+                                </p>
+                            {% endif %}
+                         {% endif %}
+                     {% endfor %}
+
+                {% endfor %}
+
+            </ol>
+        {% endif %}
+     <div>
+
+     <h2>Search User</h2>
+         <form action="/assignment3_2">
+                <input type="text" name="user_email" placeholder="Email">
+                <input  type="text" name="user_ID" placeholder="ID">
+                <input  type="submit" value="search">
+            </form>
+
+
+
+          {% if user_name!= null %}
+              <ol class="container">
+            <h3>User Name: {{ user_name| title() }}</h3>
+            <P>Email: {{ user_email| lower() }}</P>
+                  <P>User Nickname: {{ user_nickname| lower() }}</P>
+                  <P>Gender: {{ user_Gender| title() }}</P>
+            <P>Age: {{ user_age }}</P>
+            <P>ID: {{ user_ID }}</P>
+              </ol>
+        {% endif %}
+
+        {% if message %}
+            <h2 id="errormessage">{{ message }}</h2>
+        {% endif %}
+
+
+    </div>
+
+        {% if session['registration'] %}
+             <form action="/log_out">
+        <div>
+        <input type="submit" value="Log Out">
+        </div>
+        </form>
+        {% else %}
+
+     <div>
+     <h2>Registration</h2>
+
+        <form action="/assignment3_2" method="post">
+            <input type="text" name="user_name" placeholder="Username" required>            <br>
+            <input type="text" name="user_nickname" placeholder="Nickname"  required>            <br>
+            <input  type="text" name="user_email" placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required><br>
+            <select  list="user_Gender" name="user_Gender" placeholder="Gender" required ><br>
+                                <option  value="male"> male</option>
+                                <option value="female">female</option>
+                                <option  value="other"> other</option>
+
+                                </select><br>
+            <input  type="date" name="user_age" placeholder="Date Of Birth" min='1900-01-01' max='2016-01-01' required><br>
+            <input  type="text" name="user_ID" placeholder="ID" pattern="[0-9]{9}" required> <br>
+            <input type="password" name="user_password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+            <div>The password must conatain more than 8 characters, small letter, big letter and a number</div>
+            <input  type="submit" value="REGISTER">
+
+
+
+        </form>
+     {% if regSitua %}
+            <h3 id="errormessage">{{ regSitua }}</h3>
+        {% endif %}
+        </div>
+     </div>
+ {% endif %}
+    {% endblock %}
+

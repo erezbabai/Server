@@ -1,0 +1,13 @@
+<header>
+    <a href="/">Home Page</a> |
+    <a href="/assignment3_1">Personal page</a> |
+    {% if session['registration'] %}
+        <a href="/assignment3_2">Log Out & Search</a>
+    {% else %}
+        <a href="/assignment3_2">Log In & Search</a>
+    {% endif %}
+
+<div>
+    <h1>{{ pageTitle }}</h1>
+</div>
+</header>

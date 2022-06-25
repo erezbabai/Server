@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}{% endblock %}</title>
+    {% include('JSfunction.html') %}
+    {% include('styles.html') %}
+
+</head>
+<body>
+    {% include('header.html') %}
+    {% block tohen %}
+    {% endblock %}
+    {% include('footer.html') %}
+
+</body>
+</html>
