@@ -3,9 +3,13 @@ from flask import url_for
 from flask import render_template
 from datetime import timedelta
 from flask import request, session
+
+from assignment4.assignment4 import assignment4
+
+
 app = Flask(__name__)
 
-
+app.register_blueprint(assignment4)
 app.secret_key = '123'
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15)

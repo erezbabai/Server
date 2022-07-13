@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Outer Source{% endblock %}
+{% block tohen %}
+
+    <div>
+    <div>
+     <h2>Frontend</h2>
+        <form id="frontend">
+            <div>
+            <input type="number" name="user_id" placeholder="ID" pattern="[0-9]" required>
+           </div>
+        </form>
+
+        <div>
+            <button  onclick="frontendFunction()">Search</button>
+           </div>
+        <main></main>
+        <br><br><br>
+
+    <h2>Backend</h2>
+        <form action="/fetch_back_end">
+            <div >
+            <input type="number" name="id_backend" placeholder="ID" pattern="[0-9]" required>
+           </div>
+            <div>
+             <input type="submit" value="Search">
+            </div>
+            {% if backendMessage %}
+            <h2 id="errormessage">{{ backendMessage }}</h2>
+        {% endif %}
+        </form>
+
+        </div>
+    </div>
+
+     {% if userFirstName %}
+            <div class="userData">
+            <img id="pic"  src="{{picture}}" alt="Pic"/>
+             <div >
+            <h2> {{userFirstName}} {{userLastName}}</h2>
+                 <h4> email:  {{userEmail}} </h4>
+              </div>
+            </div>
+    {% endif %}
+
+
+{% endblock %}

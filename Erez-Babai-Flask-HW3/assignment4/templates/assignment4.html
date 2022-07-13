@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Users Page{% endblock %}
+
+{% block tohen %}
+
+
+
+<h2> Delete Users:</h2>
+ <form action="/delete_user" method="post">
+                <input type="text" placeholder="ID" name="user_id" pattern="[0-9]{9}" required value="{{ user_id }}">
+                <input type="submit" value="Delete">
+
+    {% if deleteMessage %}
+            <h2 id="errormessage">{{ deleteMessage }}</h2>
+        {% endif %}
+
+            </form>
+
+
+     <h2>Registration</h2>
+        <form action="/insert_user" method="post">
+            <input type="text" name="user_name" placeholder="Username" required>            <br>
+            <input type="text" name="user_nickname" placeholder="Nickname"  required>            <br>
+            <input  type="text" name="user_email" placeholder="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required><br>
+            <select  list="user_Gender" name="user_Gender" placeholder="Gender" required ><br>
+                                <option  value="male"> male</option>
+                                <option value="female">female</option>
+                                <option  value="other"> other</option>
+
+                                </select><br>
+            <input  type="number" name="user_age" placeholder="Age" min='14' max='120' required><br>
+            <input  type="text" name="user_ID" placeholder="ID" pattern="[0-9]{9}" required> <br>
+            <input type="password" name="user_password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+            <div>The password must contain more than 8 characters, small letter, big letter and a number</div>
+            <input  type="submit" value="REGISTER">
+
+               {% if regMessage %}
+            <h2 id="errormessage">{{ regMessage }}</h2>
+        {% endif %}
+        </form>
+
+<h2> Update User</h2>
+<form action="/update_user" method="post">
+                <input type="text" placeholder="ID" name="user_id" pattern="[0-9]{9}" required value="{{ user_id }}">
+                <input type="password" name="user_pass" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  value="{{ user_pass }}">
+                <select  list="user_Gender" name="user_Gender" placeholder="Gender"  value="{{ user_Gender }}" ><br>
+                                 <option  value="male"> male</option>
+                                <option value="female">female</option>
+                                <option  value="other"> other</option>
+                                </select><br>
+                <input type="submit" value="Update">
+
+ {% if updateMessage %}
+            <h2 id="errormessage">{{ updateMessage }}</h2>
+        {% endif %}
+
+            </form>
+
+
+
+
+     {% if users %}
+         <h2>List Of users </h2>
+            <div>{{ users }}</div>
+        {% endif %}
+{% endblock %}
+

@@ -28,3 +28,11 @@ footer{
 th{
     color: orange;
 }
+
+.userData{
+    text-align: center;
+}
+
+#pic{
+    width: 30%
+}
